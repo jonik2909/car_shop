@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:car_shop/widgets/app_drawer.dart';
 import 'package:car_shop/widgets/badge.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class ProductsOverviewScreen extends StatelessWidget {
           BadgeCard(value: '5')
         ],
       ),
-      drawer: Drawer(),
+      drawer: AppDrawer(),
     );
   }
 }
