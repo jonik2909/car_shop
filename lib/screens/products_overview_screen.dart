@@ -2,6 +2,7 @@
 
 import 'package:car_shop/widgets/app_drawer.dart';
 import 'package:car_shop/widgets/badge.dart';
+import 'package:car_shop/widgets/products_sample.dart';
 import 'package:flutter/material.dart';
 
 enum FilterOptions { favorites, all }
@@ -47,6 +48,7 @@ class ProductsOverviewScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
+      body: ProductsSample(showFavorites: true),
     );
   }
 }
