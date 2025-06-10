@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
 import 'package:car_shop/constants/url.dart';
+import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
@@ -13,7 +14,10 @@ class ProductItem extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            print("Product tapped!!");
+            Navigator.of(context).pushNamed(
+              ProductDetailScreen.routeName,
+              arguments: "data",
+            );
           },
           child: Image.network(
             imageUrl,

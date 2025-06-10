@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:car_shop/screens/products_overview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       home: ProductsOverviewScreen(),
+      routes: {
+        ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+      },
     );
   }
 }
