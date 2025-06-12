@@ -1,0 +1,78 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter/material.dart';
+
+class CartItem extends StatelessWidget {
+  const CartItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+      key: ValueKey("id"),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        padding: EdgeInsets.only(right: 20),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 40,
+        ),
+      ),
+      confirmDismiss: (direction) {
+        return showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                  title: Text("Are you sure?"),
+                  content:
+                      Text("Do you want to remove the item from the cart?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop(true);
+                      },
+                      child: Text("YES"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop(false);
+                      },
+                      child: Text("NO"),
+                    )
+                  ],
+                ));
+      },
+      onDismissed: (direction) {
+        print("REMOVE CART ITEM");
+      },
+      child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Color(0xff375E97),
+              child: Padding(
+                padding: const EdgeInsets.all(3),
+                child: FittedBox(
+                  child: Text(
+                    '\$20,000',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            title: Text('title'),
+            subtitle: Text('Total: \$20,000'),
+            trailing: Text(
+              "2 x",
+              style: TextStyle(fontSize: 14),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

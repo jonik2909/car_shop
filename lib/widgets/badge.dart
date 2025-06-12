@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 class BadgeCard extends StatelessWidget {
@@ -13,7 +14,10 @@ class BadgeCard extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            print("go to cart screen!");
+            Navigator.of(context).pushNamed(CartScreen.routeName);
+          },
           icon: Icon(
             Icons.add_shopping_cart,
           ),
