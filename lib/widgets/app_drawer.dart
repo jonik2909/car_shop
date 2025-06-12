@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/screens/orders_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -22,14 +23,14 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.shop),
             title: Text("Go Shop"),
             onTap: () {
-              print('go to shop screen!');
+              Navigator.of(context).pushReplacementNamed("/");
             },
           ),
           ListTile(
             leading: Icon(Icons.payment),
             title: Text("Go My Orders"),
             onTap: () {
-              print('go to Orders screen!');
+              Navigator.of(context).pushNamed(OrdersScreen.routeName);
             },
           ),
           ListTile(
