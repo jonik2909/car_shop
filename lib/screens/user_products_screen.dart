@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/screens/manage_product_screen.dart';
 import 'package:car_shop/widgets/app_drawer.dart';
 import 'package:car_shop/widgets/user_product_item.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class UserProductsScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              print("go to Create Product!");
+              Navigator.of(context).pushNamed(ManageProductScreen.routeName);
             },
             icon: Icon(Icons.add),
           )

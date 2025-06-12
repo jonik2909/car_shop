@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:car_shop/screens/cart_screen.dart';
+import 'package:car_shop/screens/manage_product_screen.dart';
 import 'package:car_shop/screens/orders_screen.dart';
 import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:car_shop/screens/products_overview_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         CartScreen.routeName: (ctx) => CartScreen(),
         OrdersScreen.routeName: (ctx) => OrdersScreen(),
         UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
+        ManageProductScreen.routeName: (ctx) => ManageProductScreen(),
       },
     );
   }

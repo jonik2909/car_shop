@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:car_shop/constants/url.dart';
+import 'package:car_shop/screens/manage_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserProductItem extends StatelessWidget {
@@ -29,7 +30,7 @@ class UserProductItem extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {
-                print("go to Edit screen");
+                Navigator.of(context).pushNamed(ManageProductScreen.routeName);
               },
             ),
             IconButton(
