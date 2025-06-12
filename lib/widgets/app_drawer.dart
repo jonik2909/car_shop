@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:car_shop/screens/orders_screen.dart';
+import 'package:car_shop/screens/user_products_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -37,7 +38,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.edit),
             title: Text("Go Managed Products"),
             onTap: () {
-              print('go to Manged Products screen!');
+              Navigator.of(context).pushNamed(UserProductsScreen.routeName);
             },
           ),
         ],

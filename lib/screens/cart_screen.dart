@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:car_shop/screens/orders_screen.dart';
 import 'package:car_shop/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      print("go to Orders screen");
+                      Navigator.of(context).pushNamed(OrdersScreen.routeName);
                     },
                     child: Text(
                       "ORDER NOW",

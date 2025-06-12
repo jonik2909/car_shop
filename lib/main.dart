@@ -4,6 +4,7 @@ import 'package:car_shop/screens/cart_screen.dart';
 import 'package:car_shop/screens/orders_screen.dart';
 import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:car_shop/screens/products_overview_screen.dart';
+import 'package:car_shop/screens/user_products_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
         CartScreen.routeName: (ctx) => CartScreen(),
         OrdersScreen.routeName: (ctx) => OrdersScreen(),
+        UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
       },
     );
   }
