@@ -9,6 +9,11 @@ import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:car_shop/screens/products_overview_screen.dart';
 import 'package:car_shop/screens/user_products_screen.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+import 'package:flutter_animate/flutter_animate.dart';
+
+// CORE & EXTERNAL PACKAGE
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +29,10 @@ class MyApp extends StatelessWidget {
   }
 
   Future<void> waitAsync() async {
-    print("START...");
-    await Future.delayed(Duration(seconds: 5));
-    print("END...");
+    final random = Random();
+
+    final number = random.nextInt(10);
+    print(number);
   }
 
   @override
@@ -38,14 +44,9 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  waitAsync();
-                },
-                child: Text("Start Process"),
-              ),
-              SizedBox(height: 30),
-              CircularProgressIndicator()
+              Text("Hello").animate().fade(), // begin=0, end=1
+              Text("Hello").animate().fade(begin: 0.5), // end=1
+              Text("Hello").animate().fade(end: 0.5), // begin=1
             ],
           ),
         ),
