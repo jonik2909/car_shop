@@ -1,14 +1,49 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:car_shop/providers/products.dart';
 import 'package:car_shop/widgets/app_drawer.dart';
 import 'package:car_shop/widgets/badge.dart';
 import 'package:car_shop/widgets/products_sample.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum FilterOptions { favorites, all }
 
-class ProductsOverviewScreen extends StatelessWidget {
+class ProductsOverviewScreen extends StatefulWidget {
   const ProductsOverviewScreen({super.key});
+
+  @override
+  State<ProductsOverviewScreen> createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  bool _isLoading = false;
+  @override
+  void didChangeDependencies() async {
+    print("EXECUTED");
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      Products products = Provider.of<Products>(context, listen: false);
+
+      await products.fetchAndSetProducts();
+
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (err) {
+      print("ERROR: $err");
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +83,9 @@ class ProductsOverviewScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductsSample(showFavorites: true),
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ProductsSample(showFavorites: true),
     );
   }
 }

@@ -1,14 +1,22 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors
 
+import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/constants/url.dart';
+import 'package:car_shop/models/product.dart';
+import 'package:car_shop/providers/products.dart';
 import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Product targetProduct = Provider.of<Product>(context, listen: false);
+
+    print(targetProduct.title);
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -20,7 +28,7 @@ class ProductItem extends StatelessWidget {
             );
           },
           child: Image.network(
-            imageUrl,
+            '$serverApi/${targetProduct.imageUrl}',
             fit: BoxFit.cover,
           ),
         ),
@@ -34,7 +42,7 @@ class ProductItem extends StatelessWidget {
             onPressed: () {},
           ),
           title: Text(
-            "BMW M5",
+            targetProduct.title,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
