@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/constants/url.dart';
+import 'package:car_shop/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -10,6 +12,9 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Product productData =
+        ModalRoute.of(context)!.settings.arguments as Product;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -22,7 +27,7 @@ class ProductDetailScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "BMW M5",
+          productData.title,
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -33,13 +38,13 @@ class ProductDetailScreen extends StatelessWidget {
               height: 400,
               width: double.infinity,
               child: Image.network(
-                imageUrl,
+                '$serverApi/${productData.imageUrl}',
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(height: 10),
             Text(
-              "\$123,000",
+              "\$${productData.price}",
               style: TextStyle(fontSize: 20, color: Colors.black54),
             ),
             SizedBox(height: 10),
@@ -47,7 +52,7 @@ class ProductDetailScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
-                "The BMW M5 Sedan is a high-performance sports car with elite equipment options and racetrack-ready technical specs",
+                productData.description,
                 textAlign: TextAlign.center,
                 softWrap: true,
                 style: TextStyle(fontSize: 18),
