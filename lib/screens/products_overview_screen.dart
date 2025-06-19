@@ -17,6 +17,7 @@ class ProductsOverviewScreen extends StatefulWidget {
 }
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  bool _showOnlyFavorites = false;
   bool _isLoading = false;
   @override
   void didChangeDependencies() async {
@@ -58,7 +59,12 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ),
         actions: <Widget>[
           PopupMenuButton<FilterOptions>(
-            onSelected: (selectedValue) {},
+            onSelected: (selectedValue) {
+              print("selectedValue $selectedValue");
+              setState(() {
+                _showOnlyFavorites = selectedValue == FilterOptions.favorites;
+              });
+            },
             icon: Icon(Icons.more_vert),
             itemBuilder: (ctx) => [
               PopupMenuItem(
@@ -85,7 +91,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       drawer: AppDrawer(),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
-          : ProductsSample(showFavorites: true),
+          : ProductsSample(showFavorites: _showOnlyFavorites),
     );
   }
 }

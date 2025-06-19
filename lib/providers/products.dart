@@ -13,6 +13,10 @@ class Products extends ChangeNotifier {
     return _items;
   }
 
+  List<Product> get favoriteItems {
+    return _items.where((product) => product.favorite).toList();
+  }
+
   Future<void> fetchAndSetProducts() async {
     try {
       final url = Uri.parse("$serverApi/car/all");

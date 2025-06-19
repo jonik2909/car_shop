@@ -13,7 +13,8 @@ class ProductsSample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Products products = Provider.of<Products>(context, listen: false);
-    final productsData = products.items;
+    final productsData =
+        showFavorites ? products.favoriteItems : products.items;
 
     return GridView.builder(
       padding: EdgeInsets.all(10),
