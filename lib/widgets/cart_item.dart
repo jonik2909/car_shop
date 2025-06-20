@@ -3,12 +3,23 @@
 import 'package:flutter/material.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+  final String productId;
+  final String title;
+  final int price;
+  final int quantity;
+
+  const CartItem({
+    super.key,
+    required this.productId,
+    required this.title,
+    required this.price,
+    required this.quantity,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: ValueKey("id"),
+      key: ValueKey(productId),
       direction: DismissDirection.endToStart,
       background: Container(
         color: Colors.red,
@@ -58,16 +69,16 @@ class CartItem extends StatelessWidget {
                 padding: const EdgeInsets.all(3),
                 child: FittedBox(
                   child: Text(
-                    '\$20,000',
+                    '\$$price',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
             ),
-            title: Text('title'),
-            subtitle: Text('Total: \$20,000'),
+            title: Text(title),
+            subtitle: Text('Total: \$${price * quantity}'),
             trailing: Text(
-              "2 x",
+              "$quantity x",
               style: TextStyle(fontSize: 14),
             ),
           ),

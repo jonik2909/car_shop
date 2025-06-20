@@ -83,7 +83,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ],
           ),
-          BadgeCard(value: '5')
+          BadgeCard()
         ],
       ),
       drawer: AppDrawer(),

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/providers/cart.dart';
 import 'package:car_shop/providers/products.dart';
 import 'package:car_shop/screens/cart_screen.dart';
 import 'package:car_shop/screens/manage_product_screen.dart';
@@ -15,6 +16,9 @@ void main() {
     providers: [
       ChangeNotifierProvider(
         create: (ctx) => Products(),
+      ),
+      ChangeNotifierProvider(
+        create: (ctx) => Cart(),
       )
     ],
     child: const MyApp(),

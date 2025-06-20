@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/providers/cart.dart';
 import 'package:car_shop/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BadgeCard extends StatelessWidget {
-  final String value;
-  const BadgeCard({super.key, required this.value});
+  const BadgeCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,12 @@ class BadgeCard extends StatelessWidget {
             ),
             constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
             child: Center(
-              child: Text(
-                value,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 12),
+              child: Consumer<Cart>(
+                builder: (context, cart, child) => Text(
+                  '${cart.cartItems.length}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
             ),
           ),

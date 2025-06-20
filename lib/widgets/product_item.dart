@@ -3,6 +3,7 @@
 import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/constants/url.dart';
 import 'package:car_shop/models/product.dart';
+import 'package:car_shop/providers/cart.dart';
 import 'package:car_shop/providers/products.dart';
 import 'package:car_shop/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Product targetProduct = Provider.of<Product>(context, listen: false);
+    final Cart cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -53,6 +55,11 @@ class ProductItem extends StatelessWidget {
               color: Color(0xffFF00FF),
             ),
             onPressed: () {
+              cart.addCartItem(
+                targetProduct.id,
+                targetProduct.price,
+                targetProduct.title,
+              );
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

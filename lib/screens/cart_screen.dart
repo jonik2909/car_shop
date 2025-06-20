@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:car_shop/providers/cart.dart';
 import 'package:car_shop/screens/orders_screen.dart';
 import 'package:car_shop/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -11,6 +13,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Cart cart = Provider.of<Cart>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
@@ -55,8 +59,13 @@ class CartScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 50,
-              itemBuilder: (ctx, i) => CartItem(),
+              itemCount: cart.cartItems.length,
+              itemBuilder: (ctx, i) => CartItem(
+                productId: cart.cartItems[i].productId,
+                title: cart.cartItems[i].title,
+                price: cart.cartItems[i].price,
+                quantity: cart.cartItems[i].quantity,
+              ),
             ),
           )
         ],
