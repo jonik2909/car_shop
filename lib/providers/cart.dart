@@ -53,6 +53,29 @@ class Cart extends ChangeNotifier {
       notifyListeners();
     }
   }
-  // clearCart
+
   // removeSingleItem
+  void removeSingleItem(String productId) {
+    bool checkItem = _cartItems.containsKey(productId);
+
+    if (!checkItem) {
+      print("Error: Cart has no product with $productId");
+      return;
+    } else if (_cartItems[productId]!.quantity > 1) {
+      _cartItems.update(
+          productId,
+          (target) => CartItemModel(
+                productId: productId,
+                title: target.title,
+                price: target.price,
+                quantity: target.quantity - 1,
+              ));
+    } else {
+      _cartItems.remove(productId);
+    }
+
+    notifyListeners();
+  }
+
+  // clearCart
 }

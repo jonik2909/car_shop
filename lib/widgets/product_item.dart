@@ -72,6 +72,7 @@ class ProductItem extends StatelessWidget {
                     label: "UNDO",
                     onPressed: () {
                       print("Undo action pressed!");
+                      cart.removeSingleItem(targetProduct.id);
                     },
                   ),
                 ),
