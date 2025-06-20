@@ -48,6 +48,8 @@ class CartScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
+                      cart.clearCart();
+
                       Navigator.of(context).pushNamed(OrdersScreen.routeName);
                     },
                     child: Text(

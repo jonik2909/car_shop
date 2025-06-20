@@ -78,4 +78,10 @@ class Cart extends ChangeNotifier {
   }
 
   // clearCart
+  void clearCart() {
+    if (_cartItems.isNotEmpty) {
+      _cartItems = {};
+      notifyListeners();
+    }
+  }
 }
