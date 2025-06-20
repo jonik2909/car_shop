@@ -23,7 +23,6 @@ class Products extends ChangeNotifier {
       final response = await http.get(url);
 
       final List resultBody = json.decode(response.body);
-      print(resultBody);
 
       _items = resultBody.map((item) {
         return Product(

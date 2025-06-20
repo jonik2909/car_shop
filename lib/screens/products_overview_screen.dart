@@ -21,8 +21,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool _isLoading = false;
   @override
   void didChangeDependencies() async {
-    print("EXECUTED");
-
     setState(() {
       _isLoading = true;
     });
