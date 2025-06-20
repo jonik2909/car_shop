@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'package:car_shop/models/order_item.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class OrderItem extends StatefulWidget {
   final OrderItemModel orderItem;
@@ -28,8 +29,10 @@ class _OrderItemState extends State<OrderItem> {
       child: Column(
         children: [
           ListTile(
-            title: Text("\$${widget.orderItem.amount}"),
-            subtitle: Text('${widget.orderItem.time}'),
+            title: Text(
+                "\$${NumberFormat("#,###").format(widget.orderItem.amount)}"),
+            subtitle: Text(
+                '${DateFormat("MM-dd-yyyy: HH:mm").format(widget.orderItem.time)}'),
             trailing: IconButton(
               icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
               onPressed: _toggleExpand,
@@ -49,7 +52,7 @@ class _OrderItemState extends State<OrderItem> {
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
-                      "${widget.orderItem.cartProducts[i].quantity} x ${widget.orderItem.cartProducts[i].price}",
+                      "${widget.orderItem.cartProducts[i].quantity} x ${NumberFormat("#,###").format(widget.orderItem.cartProducts[i].price)}",
                       style: TextStyle(fontSize: 20, color: Color(0xff375E97)),
                     ),
                   ],

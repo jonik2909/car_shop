@@ -4,6 +4,7 @@ import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/constants/url.dart';
 import 'package:car_shop/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-detail';
@@ -44,7 +45,7 @@ class ProductDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "\$${productData.price}",
+              "\$${NumberFormat("#,###").format(productData.price)}",
               style: TextStyle(fontSize: 20, color: Colors.black54),
             ),
             SizedBox(height: 10),

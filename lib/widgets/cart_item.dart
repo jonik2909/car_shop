@@ -2,6 +2,7 @@
 
 import 'package:car_shop/providers/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CartItem extends StatelessWidget {
@@ -74,14 +75,15 @@ class CartItem extends StatelessWidget {
                 padding: const EdgeInsets.all(3),
                 child: FittedBox(
                   child: Text(
-                    '\$$price',
+                    '\$${NumberFormat("#,###").format(price)}',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
             ),
             title: Text(title),
-            subtitle: Text('Total: \$${price * quantity}'),
+            subtitle: Text(
+                'Total: \$${NumberFormat("#,###").format(price * quantity)}'),
             trailing: Text(
               "$quantity x",
               style: TextStyle(fontSize: 14),

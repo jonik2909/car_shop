@@ -5,6 +5,7 @@ import 'package:car_shop/providers/orders.dart';
 import 'package:car_shop/screens/orders_screen.dart';
 import 'package:car_shop/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -43,7 +44,7 @@ class CartScreen extends StatelessWidget {
                     backgroundColor: Color(0xff375E97),
                     label: Consumer<Cart>(
                       builder: (context, value, child) => Text(
-                        '\$${value.totalAmount}',
+                        '\$${NumberFormat("#,###").format(value.totalAmount)}',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
