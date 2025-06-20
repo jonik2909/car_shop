@@ -9,6 +9,14 @@ class Cart extends ChangeNotifier {
     return _cartItems.values.toList();
   }
 
+  int get totalAmount {
+    int total = 0;
+    _cartItems.forEach((key, value) {
+      total += value.quantity * value.price;
+    });
+    return total;
+  }
+
   // addCartItem
   void addCartItem(String productId, int price, String title) {
     // check
@@ -35,7 +43,16 @@ class Cart extends ChangeNotifier {
 
     notifyListeners();
   }
+
   // deleteCartItem
+  void deleteCartItem(String productId) {
+    bool checkItem = _cartItems.containsKey(productId);
+
+    if (checkItem) {
+      _cartItems.remove(productId);
+      notifyListeners();
+    }
+  }
   // clearCart
   // removeSingleItem
 }

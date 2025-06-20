@@ -39,9 +39,11 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     backgroundColor: Color(0xff375E97),
-                    label: Text(
-                      '\$20000',
-                      style: TextStyle(color: Colors.white),
+                    label: Consumer<Cart>(
+                      builder: (context, value, child) => Text(
+                        '\$${value.totalAmount}',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                   TextButton(

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/providers/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartItem extends StatelessWidget {
   final String productId;
@@ -18,6 +20,8 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Cart cart = Provider.of<Cart>(context, listen: false);
+
     return Dismissible(
       key: ValueKey(productId),
       direction: DismissDirection.endToStart,
@@ -57,6 +61,7 @@ class CartItem extends StatelessWidget {
       },
       onDismissed: (direction) {
         print("REMOVE CART ITEM");
+        cart.deleteCartItem(productId);
       },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
