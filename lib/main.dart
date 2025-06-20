@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:car_shop/providers/cart.dart';
+import 'package:car_shop/providers/orders.dart';
 import 'package:car_shop/providers/products.dart';
 import 'package:car_shop/screens/cart_screen.dart';
 import 'package:car_shop/screens/manage_product_screen.dart';
@@ -14,12 +15,9 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(
-        create: (ctx) => Products(),
-      ),
-      ChangeNotifierProvider(
-        create: (ctx) => Cart(),
-      )
+      ChangeNotifierProvider(create: (ctx) => Products()),
+      ChangeNotifierProvider(create: (ctx) => Cart()),
+      ChangeNotifierProvider(create: (ctx) => Orders())
     ],
     child: const MyApp(),
   ));

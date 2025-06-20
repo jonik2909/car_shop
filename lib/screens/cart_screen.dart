@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:car_shop/providers/cart.dart';
+import 'package:car_shop/providers/orders.dart';
 import 'package:car_shop/screens/orders_screen.dart';
 import 'package:car_shop/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Cart cart = Provider.of<Cart>(context, listen: false);
+    Orders orders = Provider.of<Orders>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -48,9 +50,12 @@ class CartScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      cart.clearCart();
+                      if (cart.cartItems.isNotEmpty) {
+                        orders.addOrder(cart.cartItems, cart.totalAmount);
+                        cart.clearCart();
 
-                      Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                        Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                      }
                     },
                     child: Text(
                       "ORDER NOW",
