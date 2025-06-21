@@ -11,7 +11,51 @@ class ManageProductScreen extends StatefulWidget {
 }
 
 class _ManageProductScreenState extends State<ManageProductScreen> {
-  final _form = GlobalKey();
+  final _form = GlobalKey<FormState>();
+
+  String? _validateTitle(String? value) {
+    if (value == null || value.isEmpty) {
+      return "The value should not be empty";
+    } else if (value.length < 1) {
+      return "The title should be at least four letters long";
+    } else if (value.length > 15) {
+      return "The title should not be more than fifteen letters long";
+    }
+
+    return null;
+  }
+
+  String? _validatePrice(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter the price amount";
+    } else if (int.tryParse(value) == null) {
+      return "Please enter a valid number";
+    } else if (int.parse(value) <= 0) {
+      return "Please enter an amount greater than zero";
+    }
+
+    return null;
+  }
+
+  String? _validateDescription(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter a description";
+    } else if (value.length < 4) {
+      return "The description should have at least 4 charachters";
+    }
+
+    return null;
+  }
+
+  void _saveForm() async {
+    if (!_form.currentState!.validate()) {
+      return;
+    }
+    _form.currentState!.save();
+
+    print("REQUEST TO BACKEND");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +68,7 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: () {},
+            onPressed: _saveForm,
           )
         ],
       ),
@@ -50,8 +94,9 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                 ),
-                initialValue: "TITLE",
+                // initialValue: "TITLE",
                 textInputAction: TextInputAction.next,
+                validator: _validateTitle,
                 onSaved: (value) {
                   print("Title Value $value");
                 },
@@ -73,9 +118,10 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                 ),
-                initialValue: "PRICE",
+                // initialValue: "PRICE",
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
+                validator: _validatePrice,
                 onSaved: (value) {
                   print("price Value $value");
                 },
@@ -97,10 +143,11 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                 ),
-                initialValue: "DESCRIPTION",
+                // initialValue: "DESCRIPTION",
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
+                validator: _validateDescription,
                 onSaved: (value) {
                   print("description Value $value");
                 },
