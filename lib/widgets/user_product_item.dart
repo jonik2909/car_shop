@@ -1,16 +1,25 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/constants/url.dart';
 import 'package:car_shop/screens/manage_product_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserProductItem extends StatelessWidget {
-  const UserProductItem({super.key});
+  final String productId;
+  final String title;
+  final String imageUrl;
+
+  const UserProductItem(
+      {super.key,
+      required this.productId,
+      required this.title,
+      required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("BMW M5"),
+      title: Text(title),
       leading: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -20,7 +29,7 @@ class UserProductItem extends StatelessWidget {
           ),
         ),
         child: CircleAvatar(
-          backgroundImage: NetworkImage(imageUrl),
+          backgroundImage: NetworkImage('$serverApi/${imageUrl}'),
         ),
       ),
       trailing: SizedBox(

@@ -19,6 +19,7 @@ class Products extends ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     try {
+      print("REQUESTING...");
       final url = Uri.parse("$serverApi/car/all");
       final response = await http.get(url);
 
