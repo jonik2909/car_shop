@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class Products extends ChangeNotifier {
   // API & STATE
@@ -37,6 +39,52 @@ class Products extends ChangeNotifier {
       notifyListeners();
     } catch (err) {
       print("ERROR, fetchAndSetProducts: $err");
+      rethrow;
+    }
+  }
+
+  Future<String?> pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        File file = File(image.path);
+
+        // Send to BACKEND
+        return await uploadImage(file);
+      }
+    } catch (err) {
+      print("pickImage ERROR: $err");
+      rethrow;
+    }
+  }
+
+  Future<String> uploadImage(File imageFile) async {
+    try {
+      final uri = Uri.parse("$serverApi/car/upload/image");
+
+      final request = http.MultipartRequest("POST", uri);
+
+      final imageMultipartFile =
+          await http.MultipartFile.fromPath('carImage', imageFile.path);
+
+      request.files.add(imageMultipartFile);
+
+      final streamedResponse = await request.send(); // Streamed Response
+
+      final response = await http.Response.fromStream(
+          streamedResponse); // Streamed => RESPONSE (body)
+
+      final body = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        return body['path'];
+      } else {
+        throw body['message'];
+      }
+    } catch (err) {
+      print("Image Upload ERROR: $err");
       rethrow;
     }
   }

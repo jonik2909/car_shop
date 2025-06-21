@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/providers/products.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ManageProductScreen extends StatefulWidget {
   static const routeName = '/manage-product';
@@ -54,6 +56,14 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
     _form.currentState!.save();
 
     print("REQUEST TO BACKEND");
+  }
+
+  Future<void> _pickAndSetImage() async {
+    final Products products = Provider.of<Products>(context, listen: false);
+
+    final String? url = await products.pickImage();
+
+    print("url $url");
   }
 
   @override
@@ -154,8 +164,8 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
               ),
               SizedBox(height: 30),
               GestureDetector(
-                onTap: () {
-                  print("UPLOAD IMAGE!");
+                onTap: () async {
+                  await _pickAndSetImage();
                 },
                 child: Image.asset('lib/assets/upload_img.png',
                     width: double.infinity, height: 200, fit: BoxFit.cover),
