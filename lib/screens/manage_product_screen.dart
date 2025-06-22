@@ -16,6 +16,14 @@ class ManageProductScreen extends StatefulWidget {
 
 class _ManageProductScreenState extends State<ManageProductScreen> {
   final _form = GlobalKey<FormState>();
+
+  var _initialData = {
+    "title": '',
+    "price": '',
+    "description": '',
+    "imageUrl": '',
+  };
+
   Product _productData = Product(
     id: '',
     title: '',
@@ -23,6 +31,25 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
     price: 0,
     imageUrl: '',
   );
+
+  @override
+  void didChangeDependencies() {
+    final String? productId =
+        ModalRoute.of(context)?.settings.arguments as String?;
+
+    if (productId != null) {
+      final Products products = Provider.of<Products>(context, listen: false);
+      _productData = products.findByProductId(productId);
+
+      _initialData = {
+        "title": _productData.title,
+        "price": _productData.price.toString(),
+        "description": _productData.description,
+        "imageUrl": _productData.imageUrl,
+      };
+    }
+    super.didChangeDependencies();
+  }
 
   String? _validateTitle(String? value) {
     if (value == null || value.isEmpty) {
@@ -66,7 +93,12 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
 
     try {
       final Products product = Provider.of<Products>(context, listen: false);
-      await product.addProduct(_productData);
+
+      if (_productData.id == '') {
+        await product.addProduct(_productData);
+      } else {
+        await product.editProduct(_productData);
+      }
 
       Navigator.of(context).pop();
     } catch (err) {
@@ -146,7 +178,7 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                 ),
-                // initialValue: "TITLE",
+                initialValue: _initialData["title"],
                 textInputAction: TextInputAction.next,
                 validator: _validateTitle,
                 onSaved: (value) {
@@ -179,7 +211,7 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                 ),
-                // initialValue: "PRICE",
+                initialValue: _initialData["price"],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
                 validator: _validatePrice,
@@ -213,7 +245,7 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                     borderSide: BorderSide(color: Colors.red, width: 2),
                   ),
                 ),
-                // initialValue: "DESCRIPTION",
+                initialValue: _initialData["description"],
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,

@@ -79,6 +79,42 @@ class Products extends ChangeNotifier {
     }
   }
 
+  Future<void> editProduct(Product editedProduct) async {
+    try {
+      final url = Uri.parse("$serverApi/car/update");
+
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          '_id': editedProduct.id,
+          'carTitle': editedProduct.title,
+          'carPrice': editedProduct.price,
+          'carDesc': editedProduct.description,
+          'carImage': editedProduct.imageUrl,
+        }),
+      );
+
+      final body = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        int targetIndex =
+            _items.indexWhere((element) => element.id == editedProduct.id);
+
+        _items[targetIndex] = editedProduct;
+        notifyListeners();
+      } else {
+        throw body['message'];
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
+  Product findByProductId(String productId) {
+    return _items.firstWhere((element) => element.id == productId);
+  }
+
   Future<String?> pickImage() async {
     try {
       final ImagePicker picker = ImagePicker();

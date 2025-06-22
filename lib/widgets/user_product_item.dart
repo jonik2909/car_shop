@@ -39,7 +39,10 @@ class UserProductItem extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.edit),
               onPressed: () {
-                Navigator.of(context).pushNamed(ManageProductScreen.routeName);
+                Navigator.of(context).pushNamed(
+                  ManageProductScreen.routeName,
+                  arguments: productId,
+                );
               },
             ),
             IconButton(
