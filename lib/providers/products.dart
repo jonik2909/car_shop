@@ -43,6 +43,42 @@ class Products extends ChangeNotifier {
     }
   }
 
+  Future<void> addProduct(Product product) async {
+    try {
+      final url = Uri.parse("$serverApi/car/create");
+
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'carTitle': product.title,
+          'carPrice': product.price,
+          'carDesc': product.description,
+          'carImage': product.imageUrl,
+        }),
+      );
+
+      final body = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        Product newProduct = Product(
+          id: body['_id'],
+          title: body['carTitle'],
+          price: body['carPrice'],
+          description: body['carDesc'],
+          imageUrl: body['carImage'],
+        );
+
+        _items.add(newProduct);
+        notifyListeners();
+      } else {
+        throw body['message'];
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
   Future<String?> pickImage() async {
     try {
       final ImagePicker picker = ImagePicker();

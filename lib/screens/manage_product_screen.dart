@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:car_shop/constants/config.dart';
+import 'package:car_shop/models/product.dart';
 import 'package:car_shop/providers/products.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,13 @@ class ManageProductScreen extends StatefulWidget {
 
 class _ManageProductScreenState extends State<ManageProductScreen> {
   final _form = GlobalKey<FormState>();
+  Product _productData = Product(
+    id: '',
+    title: '',
+    description: '',
+    price: 0,
+    imageUrl: '',
+  );
 
   String? _validateTitle(String? value) {
     if (value == null || value.isEmpty) {
@@ -55,7 +64,28 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
     }
     _form.currentState!.save();
 
-    print("REQUEST TO BACKEND");
+    try {
+      final Products product = Provider.of<Products>(context, listen: false);
+      await product.addProduct(_productData);
+
+      Navigator.of(context).pop();
+    } catch (err) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text("ERROR"),
+          content: Text("$err"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text("OK"),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   Future<void> _pickAndSetImage() async {
@@ -63,7 +93,19 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
 
     final String? url = await products.pickImage();
 
-    print("url $url");
+    print(url);
+
+    if (url != null) {
+      setState(() {
+        _productData = Product(
+          id: _productData.id,
+          title: _productData.title,
+          description: _productData.description,
+          price: _productData.price,
+          imageUrl: url,
+        );
+      });
+    }
   }
 
   @override
@@ -109,6 +151,15 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 validator: _validateTitle,
                 onSaved: (value) {
                   print("Title Value $value");
+                  if (value != null) {
+                    _productData = Product(
+                      id: _productData.id,
+                      title: value,
+                      description: _productData.description,
+                      price: _productData.price,
+                      imageUrl: _productData.imageUrl,
+                    );
+                  }
                 },
               ),
               SizedBox(height: 15),
@@ -134,6 +185,15 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 validator: _validatePrice,
                 onSaved: (value) {
                   print("price Value $value");
+                  if (value != null) {
+                    _productData = Product(
+                      id: _productData.id,
+                      title: _productData.title,
+                      description: _productData.description,
+                      price: int.parse(value),
+                      imageUrl: _productData.imageUrl,
+                    );
+                  }
                 },
               ),
               SizedBox(height: 25),
@@ -160,6 +220,15 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 validator: _validateDescription,
                 onSaved: (value) {
                   print("description Value $value");
+                  if (value != null) {
+                    _productData = Product(
+                      id: _productData.id,
+                      title: _productData.title,
+                      description: value,
+                      price: _productData.price,
+                      imageUrl: _productData.imageUrl,
+                    );
+                  }
                 },
               ),
               SizedBox(height: 30),
@@ -167,8 +236,19 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 onTap: () async {
                   await _pickAndSetImage();
                 },
-                child: Image.asset('lib/assets/upload_img.png',
-                    width: double.infinity, height: 200, fit: BoxFit.cover),
+                child: _productData.imageUrl.isEmpty
+                    ? Image.asset(
+                        'lib/assets/upload_img.png',
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        '$serverApi/${_productData.imageUrl}',
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
               )
             ],
           ),
