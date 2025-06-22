@@ -21,7 +21,6 @@ class Products extends ChangeNotifier {
 
   Future<void> fetchAndSetProducts() async {
     try {
-      print("REQUESTING...");
       final url = Uri.parse("$serverApi/car/all");
       final response = await http.get(url);
 
@@ -38,7 +37,6 @@ class Products extends ChangeNotifier {
 
       notifyListeners();
     } catch (err) {
-      print("ERROR, fetchAndSetProducts: $err");
       rethrow;
     }
   }
@@ -145,7 +143,6 @@ class Products extends ChangeNotifier {
         return await uploadImage(file);
       }
     } catch (err) {
-      print("pickImage ERROR: $err");
       rethrow;
     }
   }
@@ -174,7 +171,6 @@ class Products extends ChangeNotifier {
         throw body['message'];
       }
     } catch (err) {
-      print("Image Upload ERROR: $err");
       rethrow;
     }
   }

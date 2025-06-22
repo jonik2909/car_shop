@@ -34,8 +34,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         _isLoading = false;
       });
     } catch (err) {
-      print("ERROR: $err");
-
       setState(() {
         _isLoading = false;
       });
@@ -58,7 +56,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           PopupMenuButton<FilterOptions>(
             onSelected: (selectedValue) {
-              print("selectedValue $selectedValue");
               setState(() {
                 _showOnlyFavorites = selectedValue == FilterOptions.favorites;
               });

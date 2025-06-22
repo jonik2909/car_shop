@@ -16,7 +16,6 @@ class BadgeCard extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {
-            print("go to cart screen!");
             Navigator.of(context).pushNamed(CartScreen.routeName);
           },
           icon: Icon(

@@ -72,7 +72,6 @@ class UserProductItem extends StatelessWidget {
                     ],
                   ),
                 );
-                print("result: $result");
                 if (result) {
                   products.deleteProduct(productId);
                 }

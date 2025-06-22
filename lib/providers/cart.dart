@@ -59,7 +59,6 @@ class Cart extends ChangeNotifier {
     bool checkItem = _cartItems.containsKey(productId);
 
     if (!checkItem) {
-      print("Error: Cart has no product with $productId");
       return;
     } else if (_cartItems[productId]!.quantity > 1) {
       _cartItems.update(

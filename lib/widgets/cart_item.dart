@@ -61,7 +61,6 @@ class CartItem extends StatelessWidget {
                 ));
       },
       onDismissed: (direction) {
-        print("REMOVE CART ITEM");
         cart.deleteCartItem(productId);
       },
       child: Card(

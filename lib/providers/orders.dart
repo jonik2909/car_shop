@@ -20,8 +20,6 @@ class Orders extends ChangeNotifier {
       ),
     );
 
-    print("orders: $_orders");
-
     notifyListeners();
   }
 }

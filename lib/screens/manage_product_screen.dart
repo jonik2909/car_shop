@@ -125,8 +125,6 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
 
     final String? url = await products.pickImage();
 
-    print(url);
-
     if (url != null) {
       setState(() {
         _productData = Product(
@@ -182,7 +180,6 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 textInputAction: TextInputAction.next,
                 validator: _validateTitle,
                 onSaved: (value) {
-                  print("Title Value $value");
                   if (value != null) {
                     _productData = Product(
                       id: _productData.id,
@@ -216,7 +213,6 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 keyboardType: TextInputType.number,
                 validator: _validatePrice,
                 onSaved: (value) {
-                  print("price Value $value");
                   if (value != null) {
                     _productData = Product(
                       id: _productData.id,
@@ -251,7 +247,6 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                 maxLines: 3,
                 validator: _validateDescription,
                 onSaved: (value) {
-                  print("description Value $value");
                   if (value != null) {
                     _productData = Product(
                       id: _productData.id,

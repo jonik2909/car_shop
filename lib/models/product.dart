@@ -19,7 +19,6 @@ class Product extends ChangeNotifier {
 
   void toggleFavoriteStatus() {
     favorite == false ? favorite = true : favorite = false;
-    print("favorite: $favorite");
     notifyListeners();
   }
 }
