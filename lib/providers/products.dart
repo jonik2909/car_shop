@@ -111,6 +111,24 @@ class Products extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteProduct(String productId) async {
+    try {
+      final url = Uri.parse('$serverApi/car/delete/$productId');
+      final response = await http.post(url);
+
+      final body = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        _items.removeWhere((element) => element.id == productId);
+        notifyListeners();
+      } else {
+        throw body['message'];
+      }
+    } catch (err) {
+      rethrow;
+    }
+  }
+
   Product findByProductId(String productId) {
     return _items.firstWhere((element) => element.id == productId);
   }

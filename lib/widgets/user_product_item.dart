@@ -2,8 +2,10 @@
 
 import 'package:car_shop/constants/config.dart';
 import 'package:car_shop/constants/url.dart';
+import 'package:car_shop/providers/products.dart';
 import 'package:car_shop/screens/manage_product_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserProductItem extends StatelessWidget {
   final String productId;
@@ -18,6 +20,7 @@ class UserProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Products products = Provider.of<Products>(context, listen: false);
     return ListTile(
       title: Text(title),
       leading: Container(
@@ -71,7 +74,7 @@ class UserProductItem extends StatelessWidget {
                 );
                 print("result: $result");
                 if (result) {
-                  print("DELETE PRODUCT");
+                  products.deleteProduct(productId);
                 }
               },
             )
